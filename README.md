@@ -33,6 +33,8 @@ pnpm check:imports
 
 Docs:
 
+- [Usage guide](./docs/usage-guide.md)
+- [Adoption workflow](./docs/adoption-workflow.md)
 - [Token authoring](./docs/token-authoring.md)
 - [Theme packs](./docs/theme-packs.md)
 - [Wrapper import policy](./docs/import-policy.md)
