@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import "@designc/ui-web/styles.css";
+@import "@designc/theme/themes.css";
+
+:root {
+  color-scheme: light dark;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--dc-color-background);
+  color: var(--dc-color-foreground);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

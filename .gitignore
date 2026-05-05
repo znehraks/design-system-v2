@@ -4,6 +4,7 @@ generated/
 .next/
 .expo/
 coverage/
+.qa/
 .DS_Store
 *.log
 *.tsbuildinfo

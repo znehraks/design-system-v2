@@ -21,7 +21,10 @@ export default tseslint.config(
       sourceType: "module",
       globals: {
         console: "readonly",
-        process: "readonly"
+        process: "readonly",
+        module: "readonly",
+        require: "readonly",
+        __dirname: "readonly"
       }
     },
     rules: {
@@ -46,6 +49,12 @@ export default tseslint.config(
     files: ["packages/ui-web/**/*.{ts,tsx}", "packages/ui-native/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": "off"
+    }
+  },
+  {
+    files: ["**/*.config.js", "**/*.config.cjs", "**/metro.config.js", "**/babel.config.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off"
     }
   }
 );

@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "DesignC Native Playground",
+    "slug": "designc-native-playground",
+    "scheme": "designc-native-playground",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "plugins": ["expo-router"]
+  }
+}

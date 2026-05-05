@@ -9,8 +9,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./themes.css": "./src/themes.css"
   },
+  "sideEffects": ["./src/themes.css"],
   "scripts": {
     "build": "node ../../scripts/build-theme-packs.mjs && tsc -p tsconfig.json",
     "test": "vitest run --passWithNoTests"
