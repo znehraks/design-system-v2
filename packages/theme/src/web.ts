@@ -1,7 +1,6 @@
 export {
   createThemeAttributes,
-  getThemeColors,
-  semanticColorKeys,
-  type DesignCThemeId,
-  type SemanticColorKey
-} from "./core.js";
+  type DesignCThemeId
+} from "./attributes.js";
+export { getThemeColors } from "./registry.js";
+export { semanticColorKeys, type SemanticColorKey } from "./core.js";

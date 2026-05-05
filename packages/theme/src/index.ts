@@ -8,8 +8,11 @@ export {
 
 export {
   createThemeAttributes,
+  type DesignCThemeId
+} from "./attributes.js";
+
+export {
   getThemeColors,
   semanticColorKeys,
-  type DesignCThemeId,
   type SemanticColorKey
 } from "./web.js";

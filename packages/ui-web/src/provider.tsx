@@ -1,5 +1,5 @@
 import { createElement, type ComponentPropsWithoutRef, type ElementType, type ReactNode } from "react";
-import { createThemeAttributes, type DesignCThemeId, type DesignCThemeMode } from "@designc/theme";
+import { createThemeAttributes, type DesignCThemeId, type DesignCThemeMode } from "@designc/theme/attributes";
 
 type PolymorphicProps<TElement extends ElementType> = {
   as?: TElement;

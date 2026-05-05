@@ -87,7 +87,9 @@ Then import the generated CSS after the DesignC Web CSS:
 Use the `brand.palette.json` id at the app boundary:
 
 ```tsx
-<DesignCProvider as="main" theme="my-brand" mode="light">
-  <App />
-</DesignCProvider>
+<html lang="en" data-dc-theme="my-brand" data-dc-mode="light">
+  <body>
+    <App />
+  </body>
+</html>
 ```

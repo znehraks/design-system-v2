@@ -8,7 +8,8 @@
     "emitDeclarationOnly": false,
     "baseUrl": ".",
     "paths": {
-      "@designc/theme": ["../theme/dist/index.d.ts"]
+      "@designc/theme": ["../theme/dist/index.d.ts"],
+      "@designc/theme/attributes": ["../theme/dist/attributes.d.ts"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]

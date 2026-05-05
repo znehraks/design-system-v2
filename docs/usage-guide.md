@@ -97,10 +97,38 @@ If the product has a project-local theme, import its generated CSS after DesignC
 @import "./brand.theme.css";
 ```
 
-Set the active theme and mode with `DesignCProvider`:
+For the most zero-runtime setup, put static theme attributes on the app boundary:
 
 ```tsx
-import { DesignCProvider } from "@designc/ui-web";
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" data-dc-theme="muen" data-dc-mode="dark">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+This uses prebuilt CSS variables only. There is no DesignC theme JavaScript on the client.
+
+If you want a typed helper, use the attribute-only entry:
+
+```tsx
+import { createThemeAttributes } from "@designc/theme/attributes";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" {...createThemeAttributes("muen", "dark")}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Use `DesignCProvider` when a component boundary is more convenient:
+
+```tsx
+import { DesignCProvider } from "@designc/ui-web/provider";
 
 export default function Page() {
   return (
@@ -145,14 +173,14 @@ export function LeadForm() {
 
 ## Web Theme Switching
 
-Use `DesignCProvider` from `@designc/ui-web` and theme names from `@designc/theme`.
+Use `DesignCProvider` from `@designc/ui-web/provider` and theme names from `@designc/theme`.
 
 ```tsx
 "use client";
 
 import { useState } from "react";
 import { themeNames, type DesignCThemeMode, type DesignCThemeName } from "@designc/theme";
-import { DesignCProvider } from "@designc/ui-web";
+import { DesignCProvider } from "@designc/ui-web/provider";
 
 export function ThemeFrame({ children }: { children: React.ReactNode }) {
   const [themeName, setThemeName] = useState<DesignCThemeName>("company-landing");
@@ -251,7 +279,7 @@ pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
 Then activate it:
 
 ```tsx
-import { DesignCProvider } from "@designc/ui-web";
+import { DesignCProvider } from "@designc/ui-web/provider";
 
 export default function Page() {
   return (

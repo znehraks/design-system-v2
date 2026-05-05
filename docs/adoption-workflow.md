@@ -79,7 +79,8 @@ Native app dependencies:
 Import wrappers only:
 
 ```tsx
-import { Button, Card, DesignCProvider, Input } from "@designc/ui-web";
+import { DesignCProvider } from "@designc/ui-web/provider";
+import { Button, Card, Input } from "@designc/ui-web";
 import { Button, Card, Input } from "@designc/ui-native";
 ```
 
@@ -88,10 +89,14 @@ import { Button, Card, Input } from "@designc/ui-native";
 Web:
 
 ```tsx
-<DesignCProvider as="main" theme="company-landing" mode="light">
-  <ProductApp />
-</DesignCProvider>
+<html lang="en" data-dc-theme="company-landing" data-dc-mode="light">
+  <body>
+    <ProductApp />
+  </body>
+</html>
 ```
+
+Use `DesignCProvider` when a nested product surface needs its own theme boundary.
 
 Native:
 
@@ -219,7 +224,7 @@ pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
 6. Wrap the page with the theme id from `brand.palette.json`:
 
 ```tsx
-import { DesignCProvider } from "@designc/ui-web";
+import { DesignCProvider } from "@designc/ui-web/provider";
 
 export default function Page() {
   return (

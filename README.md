@@ -11,18 +11,18 @@ The core direction is:
 
 Applications consume `@designc/ui-web` or `@designc/ui-native`; they do not import HeroUI packages directly.
 
-Web apps import one stylesheet and apply themes through the provider:
+Web apps import one stylesheet and can apply static themes with attributes:
 
 ```css
 @import "@designc/ui-web/styles.css";
 ```
 
 ```tsx
-import { DesignCProvider } from "@designc/ui-web";
-
-<DesignCProvider as="main" theme="cosmetics" mode="light">
-  <App />
-</DesignCProvider>;
+<html lang="en" data-dc-theme="cosmetics" data-dc-mode="light">
+  <body>
+    <App />
+  </body>
+</html>;
 ```
 
 Product-local Web themes can be validated and compiled with:

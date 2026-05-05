@@ -1,6 +1,6 @@
-import { designcThemes, type DesignCThemeMode, type DesignCThemeName } from "./generated.js";
+import type { DesignCThemeMode } from "./generated.js";
 
-export type { DesignCThemeMode, DesignCThemeName } from "./generated.js";
+export type { DesignCThemeMode } from "./generated.js";
 
 export const semanticColorKeys = [
   "background",
@@ -39,7 +39,6 @@ export const contrastPairs = [
 ] as const;
 
 export type SemanticColorKey = (typeof semanticColorKeys)[number];
-export type DesignCThemeId = DesignCThemeName | (string & {});
 export type SemanticColors = Record<SemanticColorKey, string>;
 
 export interface LocalThemeToken {
@@ -68,17 +67,6 @@ export interface LocalThemePack {
   density: string;
   typography: Record<string, string>;
   modes: Record<DesignCThemeMode, { colors: SemanticColors }>;
-}
-
-export function createThemeAttributes(theme: DesignCThemeId, mode: DesignCThemeMode = "light") {
-  return {
-    "data-dc-theme": theme,
-    "data-dc-mode": mode
-  } as const;
-}
-
-export function getThemeColors(themeName: DesignCThemeName, mode: DesignCThemeMode = "light") {
-  return designcThemes[themeName].modes[mode].colors;
 }
 
 export function validateThemePack(theme: {
