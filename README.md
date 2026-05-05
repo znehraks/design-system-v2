@@ -11,6 +11,26 @@ The core direction is:
 
 Applications consume `@designc/ui-web` or `@designc/ui-native`; they do not import HeroUI packages directly.
 
+Web apps import one stylesheet and apply themes through the provider:
+
+```css
+@import "@designc/ui-web/styles.css";
+```
+
+```tsx
+import { DesignCProvider } from "@designc/ui-web";
+
+<DesignCProvider as="main" theme="cosmetics" mode="light">
+  <App />
+</DesignCProvider>;
+```
+
+Product-local Web themes can be validated and compiled with:
+
+```bash
+pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
+```
+
 ## Workspaces
 
 - `packages/foundation`: non-color DTCG foundation tokens

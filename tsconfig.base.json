@@ -11,13 +11,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "@designc/foundation": ["packages/foundation/src/index.ts"],
-      "@designc/theme": ["packages/theme/src/index.ts"],
-      "@designc/ui-web": ["packages/ui-web/src/index.ts"],
-      "@designc/ui-native": ["packages/ui-native/src/index.ts"]
-    }
+    "forceConsistentCasingInFileNames": true
   }
 }

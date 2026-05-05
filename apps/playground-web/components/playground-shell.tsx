@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Alert, Button, Card, Checkbox, Input, Switch, Tabs } from "@designc/ui-web";
+import { Alert, Button, Card, Checkbox, DesignCProvider, Input, Switch, Tabs } from "@designc/ui-web";
 import { designcThemes, themeNames, type DesignCThemeMode, type DesignCThemeName } from "@designc/theme";
 
 const slices = {
@@ -26,7 +26,12 @@ export function PlaygroundShell() {
   );
 
   return (
-    <main data-dc-theme={themeName} data-dc-mode={mode} className="min-h-screen bg-[var(--dc-color-background)] text-[var(--dc-color-foreground)]">
+    <DesignCProvider
+      as="main"
+      theme={themeName}
+      mode={mode}
+      className="min-h-screen bg-[var(--dc-color-background)] text-[var(--dc-color-foreground)]"
+    >
       <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-8 px-6 py-8 lg:px-10">
         <header className="flex flex-col gap-5 border-b border-[var(--dc-color-border)] pb-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
@@ -115,7 +120,7 @@ export function PlaygroundShell() {
           </Card>
         </div>
       </section>
-    </main>
+    </DesignCProvider>
   );
 }
 

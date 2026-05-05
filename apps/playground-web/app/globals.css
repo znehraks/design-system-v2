@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "@designc/ui-web/styles.css";
-@import "@designc/theme/themes.css";
 
 :root {
   color-scheme: light dark;

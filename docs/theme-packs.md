@@ -55,3 +55,39 @@ Generated outputs:
 - `packages/theme/src/themes.css`
 
 Contrast checks enforce WCAG AA 4.5:1 for required semantic foreground/background pairs.
+
+## Product-Local Theme CLI
+
+External product repos can keep a one-off theme locally and build it without editing this design system repo.
+
+Create:
+
+```txt
+designc-theme/
+  brand.palette.json
+  semantic.light.json
+  semantic.dark.json
+```
+
+Run:
+
+```bash
+pnpm exec designc-theme validate ./designc-theme
+pnpm exec designc-theme check-contrast ./designc-theme
+pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
+```
+
+Then import the generated CSS after the DesignC Web CSS:
+
+```css
+@import "@designc/ui-web/styles.css";
+@import "./brand.theme.css";
+```
+
+Use the `brand.palette.json` id at the app boundary:
+
+```tsx
+<DesignCProvider as="main" theme="my-brand" mode="light">
+  <App />
+</DesignCProvider>
+```

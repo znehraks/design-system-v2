@@ -9,18 +9,20 @@ DesignC v2 is currently a workspace-first design system scaffold.
 Supported now:
 
 - Build product apps inside this monorepo under `apps/*`.
-- Consume DesignC packages through pnpm workspace dependencies.
-- Use Web theme CSS variables through `@designc/theme/themes.css`.
+- Consume DesignC packages through pnpm workspace dependencies or local `link:` dependencies.
+- Use built-in Web theme CSS through `@designc/ui-web/styles.css`.
+- Apply Web theme and mode through `DesignCProvider`.
+- Build project-local Web theme CSS with the `designc-theme` CLI.
 - Use Native resolved theme objects from `@designc/theme`.
 - Use HeroUI only through DesignC wrapper packages.
 
 Not productionized yet:
 
-- npm package publishing.
+- public npm package publishing.
 - versioned package release workflow.
 - automatic Uniwind variable generation for every Native theme.
 
-Until package publishing is added, the most reliable workflow is to add new apps inside this repo.
+Until package publishing is added, use apps inside this repo or `link:` the local packages from an external product repo.
 
 ## Package Roles
 
@@ -28,8 +30,8 @@ Use these packages from product apps:
 
 ```txt
 @designc/foundation  non-color structure tokens
-@designc/theme       theme registry, generated CSS, resolved theme objects
-@designc/ui-web      HeroUI React wrapper
+@designc/theme       theme registry, local theme CLI, resolved theme objects
+@designc/ui-web      HeroUI React wrapper and bundled Web CSS
 @designc/ui-native   HeroUI Native wrapper
 ```
 
@@ -49,7 +51,7 @@ import { Button } from "@designc/ui-native";
 
 ## Web App Setup
 
-Create a Next.js app under `apps/my-web-app`.
+Create a Next.js app under `apps/my-web-app`, or use the same shape in a separate product repo.
 
 `apps/my-web-app/package.json`:
 
@@ -79,7 +81,6 @@ Create a Next.js app under `apps/my-web-app`.
 ```css
 @import "tailwindcss";
 @import "@designc/ui-web/styles.css";
-@import "@designc/theme/themes.css";
 
 body {
   margin: 0;
@@ -88,14 +89,24 @@ body {
 }
 ```
 
-Set the active theme and mode on a root element:
+If the product has a project-local theme, import its generated CSS after DesignC:
+
+```css
+@import "tailwindcss";
+@import "@designc/ui-web/styles.css";
+@import "./brand.theme.css";
+```
+
+Set the active theme and mode with `DesignCProvider`:
 
 ```tsx
+import { DesignCProvider } from "@designc/ui-web";
+
 export default function Page() {
   return (
-    <main data-dc-theme="muen" data-dc-mode="dark">
+    <DesignCProvider as="main" theme="muen" mode="dark">
       <App />
-    </main>
+    </DesignCProvider>
   );
 }
 ```
@@ -134,20 +145,21 @@ export function LeadForm() {
 
 ## Web Theme Switching
 
-Use `themeNames` and `designcThemes` from `@designc/theme`.
+Use `DesignCProvider` from `@designc/ui-web` and theme names from `@designc/theme`.
 
 ```tsx
 "use client";
 
 import { useState } from "react";
 import { themeNames, type DesignCThemeMode, type DesignCThemeName } from "@designc/theme";
+import { DesignCProvider } from "@designc/ui-web";
 
 export function ThemeFrame({ children }: { children: React.ReactNode }) {
   const [themeName, setThemeName] = useState<DesignCThemeName>("company-landing");
   const [mode, setMode] = useState<DesignCThemeMode>("light");
 
   return (
-    <main data-dc-theme={themeName} data-dc-mode={mode}>
+    <DesignCProvider as="main" theme={themeName} mode={mode}>
       {themeNames.map((name) => (
         <button key={name} onClick={() => setThemeName(name)}>
           {name}
@@ -157,10 +169,100 @@ export function ThemeFrame({ children }: { children: React.ReactNode }) {
         Toggle mode
       </button>
       {children}
-    </main>
+    </DesignCProvider>
   );
 }
 ```
+
+## External Web Project Workflow
+
+After npm publishing is ready, a product repo should install the public packages:
+
+```bash
+pnpm add @designc/ui-web @designc/theme
+```
+
+Before publishing, use local package links from the product repo:
+
+```json
+{
+  "dependencies": {
+    "@designc/theme": "link:../design-system-v2/packages/theme",
+    "@designc/ui-web": "link:../design-system-v2/packages/ui-web"
+  }
+}
+```
+
+Build the design system packages before running the product app:
+
+```bash
+cd ../design-system-v2
+pnpm build
+cd ../my-product
+pnpm install
+pnpm dev
+```
+
+The product app setup stays the same after npm publishing. Only the dependency spec changes from `link:` to versioned npm packages.
+
+## Project-Local Brand Theme
+
+Use a project-local theme when a product has its own brand palette but does not need to become a reusable DesignC starter theme yet.
+
+Create this in the product repo:
+
+```txt
+designc-theme/
+  brand.palette.json
+  semantic.light.json
+  semantic.dark.json
+```
+
+Example `brand.palette.json` for a cosmetic brand:
+
+```json
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "id": "lumiere-skin",
+  "name": "Lumiere Skin",
+  "mood": ["clinical", "sensory", "quiet-luxury"],
+  "density": "editorial",
+  "typography": {
+    "display": "high-contrast serif",
+    "body": "quiet grotesk sans"
+  },
+  "colors": {
+    "porcelain": { "$type": "color", "$value": "#F8F3EC" },
+    "ink": { "$type": "color", "$value": "#2B241F" },
+    "leaf": { "$type": "color", "$value": "#4F6F52" },
+    "rose": { "$type": "color", "$value": "#9A4A53" }
+  }
+}
+```
+
+Run the local theme checks:
+
+```bash
+pnpm exec designc-theme validate ./designc-theme
+pnpm exec designc-theme check-contrast ./designc-theme
+pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
+```
+
+Then activate it:
+
+```tsx
+import { DesignCProvider } from "@designc/ui-web";
+
+export default function Page() {
+  return (
+    <DesignCProvider as="main" theme="lumiere-skin" mode="light">
+      <CosmeticBrandPage />
+    </DesignCProvider>
+  );
+}
+```
+
+Promote a project-local theme into `design-system-v2/themes/*` only when it should be reused by multiple products.
 
 ## Native App Setup
 
@@ -239,7 +341,7 @@ export function ChatPreview() {
 }
 ```
 
-## Adding A Brand Theme
+## Adding A Reusable Brand Theme
 
 Create:
 
@@ -259,36 +361,30 @@ pnpm check:contrast
 pnpm build
 ```
 
+Use this path for reusable starter themes. For one product only, prefer the project-local workflow above.
+
 If all commands pass, the new theme is available from:
 
 ```ts
 import { designcThemes, themeNames } from "@designc/theme";
 ```
 
-## External Repo Usage
+## Npm Publish Upgrade Path
 
-For a completely separate product repo, there are two options.
+Publishing is the cleanest route once multiple independent repos need the system.
 
-Option A, local link during development:
+Recommended order:
 
-```json
-{
-  "dependencies": {
-    "@designc/theme": "link:../design-system-v2/packages/theme",
-    "@designc/ui-web": "link:../design-system-v2/packages/ui-web"
-  }
-}
-```
+1. Make publishable packages non-private: `@designc/foundation`, `@designc/theme`, `@designc/ui-web`, `@designc/ui-native`.
+2. Add `publishConfig.access = "public"` to scoped public packages.
+3. Make sure each package has a tight `files` list containing runtime assets, `dist`, and any bin wrappers.
+4. Run `pnpm build`, `pnpm lint`, `pnpm test`, `pnpm theme:validate`, `pnpm check:contrast`, and `pnpm check:imports`.
+5. Run `pnpm -r pack --pack-destination .qa/packs` and inspect the tarballs.
+6. Publish in dependency order: foundation, theme, ui-web, ui-native.
+7. In product repos, replace `link:` dependencies with versioned npm packages.
 
-Before running the external app:
+The intended final product install is:
 
 ```bash
-cd ../design-system-v2
-pnpm build
+pnpm add @designc/ui-web @designc/theme
 ```
-
-Option B, package publishing:
-
-Add release metadata, remove package-level `"private": true`, define package `files`, publish `@designc/*` packages, then install them normally in product repos.
-
-Publishing is the correct route for production reuse across independent repos.

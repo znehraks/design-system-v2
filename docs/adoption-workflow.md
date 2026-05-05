@@ -10,7 +10,7 @@ Pick the target:
 - Expo native app: use `@designc/ui-native`.
 - Shared brand work: update `themes/*` first.
 
-For now, create product apps inside this monorepo unless you are intentionally testing external package linking.
+For now, create product apps inside this monorepo or use local package links from an external repo. After npm publishing is ready, the product workflow stays the same and only the dependency spec changes.
 
 ## 2. Pick Or Create A Theme Pack
 
@@ -26,6 +26,17 @@ company-landing  credible, direct, business-focused
 Create a new pack when the brand mood is materially different.
 
 Do not force a product into an existing palette just because the semantic token names match.
+
+For a one-product brand, keep the theme in that product repo first:
+
+```txt
+designc-theme/
+  brand.palette.json
+  semantic.light.json
+  semantic.dark.json
+```
+
+For a reusable starter, add it under `themes/<theme-id>/` in this repo.
 
 ## 3. Scaffold The App
 
@@ -68,7 +79,7 @@ Native app dependencies:
 Import wrappers only:
 
 ```tsx
-import { Button, Card, Input } from "@designc/ui-web";
+import { Button, Card, DesignCProvider, Input } from "@designc/ui-web";
 import { Button, Card, Input } from "@designc/ui-native";
 ```
 
@@ -77,9 +88,9 @@ import { Button, Card, Input } from "@designc/ui-native";
 Web:
 
 ```tsx
-<main data-dc-theme="company-landing" data-dc-mode="light">
+<DesignCProvider as="main" theme="company-landing" mode="light">
   <ProductApp />
-</main>
+</DesignCProvider>
 ```
 
 Native:
@@ -89,6 +100,21 @@ const colors = designcThemes["company-landing"].modes.light.colors;
 ```
 
 The app can switch theme and mode by changing those values.
+
+For Web CSS, import DesignC once:
+
+```css
+@import "tailwindcss";
+@import "@designc/ui-web/styles.css";
+```
+
+If the app has a project-local theme, import the generated file after DesignC:
+
+```css
+@import "tailwindcss";
+@import "@designc/ui-web/styles.css";
+@import "./brand.theme.css";
+```
 
 ## 6. Build Product UI With Semantic Roles
 
@@ -139,26 +165,69 @@ git push origin main
 
 ## Example Simulation
 
-Scenario: create a new company landing page.
+Scenario: create a new cosmetic brand page in a separate repo.
 
-1. Use the existing `company-landing` theme.
-2. Copy the setup pattern from `apps/playground-web`.
-3. Create `apps/company-site`.
-4. Add workspace dependencies on `@designc/theme` and `@designc/ui-web`.
-5. Import CSS in `app/globals.css`:
+1. Create the product app:
+
+```bash
+pnpm create next-app lumiere-site
+cd lumiere-site
+```
+
+2. Until npm publish is ready, link the local packages:
+
+```json
+{
+  "dependencies": {
+    "@designc/theme": "link:../design-system-v2/packages/theme",
+    "@designc/ui-web": "link:../design-system-v2/packages/ui-web"
+  }
+}
+```
+
+After npm publish, replace those with:
+
+```bash
+pnpm add @designc/ui-web @designc/theme
+```
+
+3. Import CSS in `app/globals.css`:
 
 ```css
 @import "tailwindcss";
 @import "@designc/ui-web/styles.css";
-@import "@designc/theme/themes.css";
+@import "./brand.theme.css";
 ```
 
-6. Wrap the page:
+4. Create the product-owned theme:
+
+```txt
+designc-theme/
+  brand.palette.json
+  semantic.light.json
+  semantic.dark.json
+```
+
+5. Validate and build the theme CSS:
+
+```bash
+pnpm exec designc-theme validate ./designc-theme
+pnpm exec designc-theme check-contrast ./designc-theme
+pnpm exec designc-theme build ./designc-theme --out ./app/brand.theme.css
+```
+
+6. Wrap the page with the theme id from `brand.palette.json`:
 
 ```tsx
-<main data-dc-theme="company-landing" data-dc-mode="light">
-  <CompanyLanding />
-</main>
+import { DesignCProvider } from "@designc/ui-web";
+
+export default function Page() {
+  return (
+    <DesignCProvider as="main" theme="lumiere-skin" mode="light">
+      <CosmeticBrandPage />
+    </DesignCProvider>
+  );
+}
 ```
 
 7. Build sections with wrapper components:
@@ -166,16 +235,16 @@ Scenario: create a new company landing page.
 ```tsx
 import { Button, Card } from "@designc/ui-web";
 
-export function CompanyLanding() {
+export function CosmeticBrandPage() {
   return (
     <>
       <section>
-        <h1>DesignC Studio</h1>
-        <Button variant="primary">Book a call</Button>
+        <h1>Lumiere Skin</h1>
+        <Button variant="primary">Shop the serum</Button>
       </section>
       <Card>
         <Card.Header>
-          <Card.Title>Proof</Card.Title>
+          <Card.Title>Ingredient notes</Card.Title>
         </Card.Header>
       </Card>
     </>
@@ -183,7 +252,7 @@ export function CompanyLanding() {
 }
 ```
 
-8. If the brand needs different color emotion, create `themes/designc-studio` instead of changing `company-landing`.
+8. Use semantic CSS variables for custom layout and keep raw brand colors inside `designc-theme/*`.
 9. Run validation.
 10. Commit and push the task.
 

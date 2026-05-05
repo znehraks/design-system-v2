@@ -4,9 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@designc/theme": ["../../packages/theme/src/index.ts"],
-      "@designc/ui-native": ["../../packages/ui-native/src/index.ts"]
+      "@/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "uniwind-env.d.ts"]

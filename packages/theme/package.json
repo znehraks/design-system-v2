@@ -10,8 +10,20 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js"
+    },
     "./themes.css": "./src/themes.css"
   },
+  "bin": {
+    "designc-theme": "./bin/designc-theme.mjs"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "src/themes.css"
+  ],
   "sideEffects": ["./src/themes.css"],
   "scripts": {
     "build": "node ../../scripts/build-theme-packs.mjs && tsc -p tsconfig.json",

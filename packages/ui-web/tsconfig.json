@@ -5,7 +5,11 @@
     "rootDir": "src",
     "noEmit": false,
     "declaration": true,
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "baseUrl": ".",
+    "paths": {
+      "@designc/theme": ["../theme/dist/index.d.ts"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
