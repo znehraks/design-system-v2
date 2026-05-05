@@ -10,3 +10,30 @@ The core direction is:
 - thin DesignC wrappers over HeroUI React and HeroUI Native
 
 Applications consume `@designc/ui-web` or `@designc/ui-native`; they do not import HeroUI packages directly.
+
+## Workspaces
+
+- `packages/foundation`: non-color DTCG foundation tokens
+- `packages/theme`: brand theme pack build, validation, and exports
+- `packages/ui-web`: HeroUI React wrapper
+- `packages/ui-native`: HeroUI Native wrapper
+- `apps/playground-web`: Next.js playground
+- `apps/playground-native`: Expo playground
+
+## Commands
+
+```bash
+pnpm build
+pnpm lint
+pnpm test
+pnpm theme:validate
+pnpm check:contrast
+pnpm check:imports
+```
+
+Docs:
+
+- [Token authoring](./docs/token-authoring.md)
+- [Theme packs](./docs/theme-packs.md)
+- [Wrapper import policy](./docs/import-policy.md)
+- [Task workflow](./docs/task-workflow.md)
