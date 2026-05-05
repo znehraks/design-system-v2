@@ -2,6 +2,8 @@
 
 This document explains how to use DesignC v2 in product work.
 
+For a concrete external product repo example, see [Cosmetic brand quickstart](./cosmetic-brand-quickstart.md).
+
 ## Current Support Level
 
 DesignC v2 is currently a workspace-first design system scaffold.

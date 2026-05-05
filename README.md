@@ -53,6 +53,7 @@ pnpm check:imports
 
 Docs:
 
+- [Cosmetic brand quickstart](./docs/cosmetic-brand-quickstart.md)
 - [Usage guide](./docs/usage-guide.md)
 - [Adoption workflow](./docs/adoption-workflow.md)
 - [Token authoring](./docs/token-authoring.md)
