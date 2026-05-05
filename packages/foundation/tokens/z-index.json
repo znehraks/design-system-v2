@@ -1,0 +1,10 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "zIndex": {
+    "base": { "$type": "number", "$value": 0 },
+    "sticky": { "$type": "number", "$value": 100 },
+    "overlay": { "$type": "number", "$value": 400 },
+    "modal": { "$type": "number", "$value": 500 },
+    "toast": { "$type": "number", "$value": 600 }
+  }
+}

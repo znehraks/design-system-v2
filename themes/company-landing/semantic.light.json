@@ -1,0 +1,26 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "mode": "light",
+  "colors": {
+    "background": { "$type": "color", "$value": "{brand.colors.paper}" },
+    "foreground": { "$type": "color", "$value": "{brand.colors.ink}" },
+    "surface": { "$type": "color", "$value": "#FFFFFF" },
+    "surfaceAlt": { "$type": "color", "$value": "#ECEFE8" },
+    "primary": { "$type": "color", "$value": "{brand.colors.signalGreen}" },
+    "onPrimary": { "$type": "color", "$value": "#FFFFFF" },
+    "accent": { "$type": "color", "$value": "{brand.colors.brass}" },
+    "onAccent": { "$type": "color", "$value": "#FFFFFF" },
+    "cta": { "$type": "color", "$value": "{brand.colors.ink}" },
+    "onCta": { "$type": "color", "$value": "#FFFFFF" },
+    "border": { "$type": "color", "$value": "{brand.colors.line}" },
+    "muted": { "$type": "color", "$value": "#E6E9E2" },
+    "mutedForeground": { "$type": "color", "$value": "#464D42" },
+    "success": { "$type": "color", "$value": "{brand.colors.signalGreen}" },
+    "onSuccess": { "$type": "color", "$value": "#FFFFFF" },
+    "warning": { "$type": "color", "$value": "{brand.colors.brass}" },
+    "onWarning": { "$type": "color", "$value": "#FFFFFF" },
+    "danger": { "$type": "color", "$value": "#A64040" },
+    "onDanger": { "$type": "color", "$value": "#FFFFFF" },
+    "focusRing": { "$type": "color", "$value": "{brand.colors.signalGreen}" }
+  }
+}

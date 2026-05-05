@@ -1,8 +1,13 @@
-import { existsSync } from "node:fs";
+import { getThemeDirs, loadTheme, validateTheme } from "./theme-io.mjs";
 
-if (!existsSync("themes")) {
-  console.log("No themes directory yet; theme validation skipped for bootstrap.");
-  process.exit(0);
+const themeDirs = await getThemeDirs();
+
+if (themeDirs.length === 0) {
+  throw new Error("No theme packs found in themes/.");
 }
 
-console.log("Theme validation will be implemented with the theme engine task.");
+for (const themeName of themeDirs) {
+  validateTheme(await loadTheme(themeName));
+}
+
+console.log(`Validated ${themeDirs.length} theme packs.`);

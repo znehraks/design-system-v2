@@ -1,0 +1,10 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "accessibility": {
+    "focusRingWidth": { "$type": "dimension", "$value": "2px" },
+    "focusRingOffset": { "$type": "dimension", "$value": "2px" },
+    "minimumTarget": { "$type": "dimension", "$value": "44px" },
+    "contrastBodyText": { "$type": "number", "$value": 4.5 },
+    "contrastLargeText": { "$type": "number", "$value": 3 }
+  }
+}

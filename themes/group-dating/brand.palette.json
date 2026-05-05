@@ -1,0 +1,22 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "id": "group-dating",
+  "name": "Group Dating App",
+  "mood": ["social", "warm", "safe", "energetic"],
+  "density": "lively",
+  "typography": {
+    "display": "rounded expressive sans",
+    "body": "friendly readable sans"
+  },
+  "colors": {
+    "milk": { "$type": "color", "$value": "#FFF7EC" },
+    "ink": { "$type": "color", "$value": "#24201C" },
+    "coral": { "$type": "color", "$value": "#C93138" },
+    "coralGlow": { "$type": "color", "$value": "#FF7377" },
+    "mango": { "$type": "color", "$value": "#735000" },
+    "mint": { "$type": "color", "$value": "#087F6F" },
+    "mintGlow": { "$type": "color", "$value": "#47D8BE" },
+    "sky": { "$type": "color", "$value": "#1F6F93" },
+    "night": { "$type": "color", "$value": "#171312" }
+  }
+}

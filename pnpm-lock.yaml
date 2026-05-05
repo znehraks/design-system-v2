@@ -24,6 +24,14 @@ importers:
         specifier: ^4.0.6
         version: 4.1.5(vite@8.0.10)
 
+  packages/foundation: {}
+
+  packages/theme:
+    dependencies:
+      '@designc/foundation':
+        specifier: workspace:*
+        version: link:../foundation
+
 packages:
 
   '@emnapi/core@1.10.0':

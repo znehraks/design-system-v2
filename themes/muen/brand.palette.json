@@ -1,0 +1,21 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "id": "muen",
+  "name": "Muen AI Chatbot",
+  "mood": ["intelligent", "calm", "companion-like", "slightly mysterious"],
+  "density": "compact",
+  "typography": {
+    "display": "technical but soft sans",
+    "body": "chat-optimized readable sans"
+  },
+  "colors": {
+    "obsidian": { "$type": "color", "$value": "#101316" },
+    "mist": { "$type": "color", "$value": "#EEF4F2" },
+    "graphite": { "$type": "color", "$value": "#252B2E" },
+    "phosphor": { "$type": "color", "$value": "#C7FF6B" },
+    "aquaSignal": { "$type": "color", "$value": "#8BE7FF" },
+    "deepTeal": { "$type": "color", "$value": "#0B4A4A" },
+    "deepOlive": { "$type": "color", "$value": "#4D6C00" },
+    "fog": { "$type": "color", "$value": "#F1F7F5" }
+  }
+}

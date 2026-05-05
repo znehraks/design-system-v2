@@ -1,0 +1,22 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "id": "company-landing",
+  "name": "Company Landing",
+  "mood": ["credible", "sharp", "capable", "business-focused"],
+  "density": "information-dense",
+  "typography": {
+    "display": "confident editorial sans",
+    "body": "neutral business sans"
+  },
+  "colors": {
+    "paper": { "$type": "color", "$value": "#F7F8F5" },
+    "ink": { "$type": "color", "$value": "#151713" },
+    "steel": { "$type": "color", "$value": "#5E6972" },
+    "signalGreen": { "$type": "color", "$value": "#2F7D55" },
+    "signalGreenSoft": { "$type": "color", "$value": "#8CCEA8" },
+    "brass": { "$type": "color", "$value": "#72521F" },
+    "brassSoft": { "$type": "color", "$value": "#D7A45F" },
+    "line": { "$type": "color", "$value": "#DADDD6" },
+    "charcoal": { "$type": "color", "$value": "#111411" }
+  }
+}

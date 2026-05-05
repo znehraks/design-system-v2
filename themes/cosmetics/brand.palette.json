@@ -1,0 +1,23 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "id": "cosmetics",
+  "name": "Cosmetics Brand",
+  "mood": ["clean", "sensory", "premium", "ingredient-led"],
+  "density": "editorial",
+  "typography": {
+    "display": "high-contrast serif",
+    "body": "quiet grotesk sans"
+  },
+  "colors": {
+    "porcelain": { "$type": "color", "$value": "#F8F3EC" },
+    "cream": { "$type": "color", "$value": "#EFE4D7" },
+    "shell": { "$type": "color", "$value": "#FFFDF8" },
+    "ink": { "$type": "color", "$value": "#2B241F" },
+    "botanical": { "$type": "color", "$value": "#4F6F52" },
+    "botanicalSoft": { "$type": "color", "$value": "#A8C7A0" },
+    "blush": { "$type": "color", "$value": "#9A4A53" },
+    "blushSoft": { "$type": "color", "$value": "#E1A9AF" },
+    "clay": { "$type": "color", "$value": "#DED2C4" },
+    "deepBrown": { "$type": "color", "$value": "#171411" }
+  }
+}
